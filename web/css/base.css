@@ -1,0 +1,71 @@
+.first_title{
+    display: block;
+    width: 400px;
+    margin-left: 4cqh;
+    padding: 10px;
+    color: #000000;
+    font-family:  "Microsoft YaHei";
+    font-size: 2rem;
+}
+
+li,.menuItem{
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.img-set {
+    width: 25px;
+    position: relative;
+    top:-2.5px;
+    margin-right: 5px;
+    background: transparent;
+}
+.nav_links{
+    list-style: none;
+}
+
+.nav_links li{
+    display: block;
+    padding: 10px 10px;
+    margin-left: 55px;
+}
+
+.nav_links li a{
+    transition: all 0.3s ease 0s;
+    text-decoration: none;
+}
+
+.nav_links li a:hover{
+    color: #747474;
+}
+.query-input {
+    color: black;
+    height: 26px;
+    border-style: none;
+    border-radius: 25px;
+}
+
+.query-button {
+    border-style: none;
+    margin-top: 8%;
+    background-color: transparent;
+}
+
+.info {
+    background-color: #ffffff;
+    /* background-image:url(../images/panda.png); */
+    background-repeat:no-repeat;
+    background-position:right 0px top 80px;
+    background-size:150px 150px;
+    height:300px;
+    position:absolute;
+    bottom:3px;
+    right: 5px;
+    width: 400px;
+    border-radius: 15px;
+    box-shadow:  10px 10px 10px 1px rgba(0, 0, 0, 0.5);
+    border: 1px solid #ffffff;
+}

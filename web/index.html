@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>map</title>
+    <script src="jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+    <script src="leaflet/leaflet.js"></script>
+    <link rel="stylesheet" href="layui-v2.6.8/layui/css/layui.css">
+    <script src="leaflet/plugins/leaflet.heat/leaflet-heat.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <script src="layui-v2.6.8/layui/layui.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/query.js"></script>
+    <script src="js/count.js"></script>
+    <script src="js/heatMap.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header" style="
+        height: 350px;
+        width: 360px;
+        margin-left: 30px;
+        margin-top: 30px;
+        background: rgba(99, 99, 99, 0) border-box;
+        box-shadow:  0px 0px 10px 10px rgba(0, 0, 0, 0.5);
+        ">
+        <nav>
+            <ul class="nav_links">
+                <h2 class="first_title">庐山实习服务平台</h2>
+
+                <div class="layui-form">
+                    <form action="">
+                        <div class="layui-form-item" >
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="  请输入实习点名称"
+                                       class="query-input"/>
+                                <button type="button" lay-submit="" lay-filter="queryParam" class="query-button">
+                                    <img src="./images/search.svg" class="img-set">
+                                </button>
+                                <button type="button" class="clear-button">
+                                    <img src="images/trash.png" class="img-set">
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <li><a href="#" name="count" class="menuItem"><img src="./images/bar-chart.svg" class="img-set">    实习点类型专题统计图</a></li>
+                <li><a href="#" name="heatMap" class="menuItem"><img src="./images/globe.svg" class="img-set">    实习点分布热力图</a></li>
+                <li><a href="#" name="networkAnalysis" class="menuItem"><img src="./images/grid-fill.svg" class="img-set">    功能开发中</a></li>
+                <li><a href="#" name="visualpage" class="menuItem"><img src="./images/layout-text-window-reverse.svg" class="img-set">    功能开发中</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="layui-body" style="padding-bottom:0; left: 0; top: 0 ;">
+        <!-- 用layui布局内容主体区域 -->
+        <div id="map" style="z-index: 1"></div>
+    </div>
+</div>
+<script>
+    //layui是一个Web UI的js库，提供了一些UI方案，包括页面的布局以及一些页面元素
+    //下面这段是对模块的引入，使用layui.use用法，引入'element', 'layer', 'util', 'form'进行预加载
+    //关于layui的具体用法可以参考：http://layui.org.cn/doc/index.html
+    layui.use(['element', 'layer', 'util', 'form'], function () {
+        var element = layui.element
+            , layer = layui.layer
+            , util = layui.util
+            , $ = layui.$;
+        form = layui.form;
+        // 设置地图显示区域的高度
+        $("#map").height($(".layui-body").height());
+        // 系统功能实现
+        // 1. 地图加载与地图叠加，调用lm.map用法
+        lm.map.addmap();
+        // 处理查询和地图渲染的函数
+        var arry = ["query","count","heatMap"];
+        $(".menuItem").click(function () {
+            // 获取当前要执行的功能的name
+            var attr = $(this).attr('name');
+            // 清理其它资源
+            // var resetContent;
+            // for (i = 0; i < arry.length; i++) {
+            //     resetContent = arry[i];
+            //     lm[resetContent].clear();
+            // }
+            // 加载资源，每个js中都有onload用法
+            lm[attr].onload();
+        });
+        //将搜索按钮绑定清理功能，并将
+        form.on('submit(queryParam)', function (data) {
+            lm.query.clear();
+            //将data在控制台输出，查看data的属性，用于后面查询
+            console.log(data);
+            // 将搜索框的内容传给query
+            lm.query.onload(data);
+        });
+        //给清理按钮绑定清除功能，清除图层内容
+        $(".clear-button").click(function() {
+            var resetContent;
+            for (var i = 0; i < arry.length; i++) {
+                resetContent = arry[i];
+                //调用每个类的clear方法
+                lm[resetContent].clear();
+            }
+        });
+    });
+
+</script>
+</body>
+</html>
