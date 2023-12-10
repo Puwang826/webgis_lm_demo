@@ -1,7 +1,0 @@
-{
-  "name": "webgis",
-  "version": "1.0.0",
-  "dependencies": {
-    "leaflet-heatmap": "^1.0.0"
-  }
-}
