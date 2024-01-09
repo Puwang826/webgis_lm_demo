@@ -1,0 +1,4 @@
+这是一个webgis的demo
+前端主要用jquery.js和leaflet.js去构建地图的功能，用layui.js构建页面的框架
+后端主要用javaee，tomacat，servlet，jdbc构建，实现与数据库及前端的调联
+数据库采用postgresql以及postgis，实现对地理数据的操作
