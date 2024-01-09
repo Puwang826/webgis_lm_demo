@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class JdbcUtils {
+        /*
+        创建数据库连接池
+         */
         private static DruidDataSource dataSource;
 
         static {

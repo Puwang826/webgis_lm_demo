@@ -1,6 +1,6 @@
 lm.count = (function () {
     var pointLayer;
-    var infoView; // 将infoView定义在更高的作用域内
+    var infoView;
 
     function loadData() {
         $.ajax({

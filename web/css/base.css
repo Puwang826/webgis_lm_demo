@@ -69,3 +69,50 @@ li,.menuItem{
     box-shadow:  10px 10px 10px 1px rgba(0, 0, 0, 0.5);
     border: 1px solid #ffffff;
 }
+.clear-button{
+    border-style: none;
+    margin-top: 8%;
+    background-color: transparent;
+}
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+}
+
+.addpoint_clear-button {
+    background-color: lightgray;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    border-radius: 7px;
+}
+
+.addpoint_add-button {
+    background-color: rgb(0, 204, 255);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    border-radius: 7px;
+}
+/* 样式名可根据需要修改 */
+.addpoint_input-name,
+.addpoint_input-meaning {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    /* 这里可以添加其他样式属性 */
+}
+
+.start-popup-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}

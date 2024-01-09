@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +14,7 @@
     <script src="js/query.js"></script>
     <script src="js/count.js"></script>
     <script src="js/heatMap.js"></script>
+    <script src="js/addpoint.js"></script>
     <link rel="stylesheet" href="css/base.css">
 </head>
 <body>
@@ -47,7 +49,7 @@
                 </div>
                 <li><a href="#" name="count" class="menuItem"><img src="./images/bar-chart.svg" class="img-set">    实习点类型专题统计图</a></li>
                 <li><a href="#" name="heatMap" class="menuItem"><img src="./images/globe.svg" class="img-set">    实习点分布热力图</a></li>
-                <li><a href="#" name="networkAnalysis" class="menuItem"><img src="./images/grid-fill.svg" class="img-set">    功能开发中</a></li>
+                <li><a href="#" name="addpoint" class="menuItem"><img src="./images/grid-fill.svg" class="img-set">    添加实习点</a></li>
                 <li><a href="#" name="visualpage" class="menuItem"><img src="./images/layout-text-window-reverse.svg" class="img-set">    功能开发中</a></li>
             </ul>
         </nav>
@@ -60,7 +62,7 @@
 <script>
     //layui是一个Web UI的js库，提供了一些UI方案，包括页面的布局以及一些页面元素
     //下面这段是对模块的引入，使用layui.use用法，引入'element', 'layer', 'util', 'form'进行预加载
-    //关于layui的具体用法可以参考：http://layui.org.cn/doc/index.html
+    //关于layui的具体用法可以参考：https://layui.dev/
     layui.use(['element', 'layer', 'util', 'form'], function () {
         var element = layui.element
             , layer = layui.layer
@@ -73,7 +75,7 @@
         // 1. 地图加载与地图叠加，调用lm.map用法
         lm.map.addmap();
         // 处理查询和地图渲染的函数
-        var arry = ["query","count","heatMap"];
+        var arry = ["query","count","heatMap","addpoint"];
         $(".menuItem").click(function () {
             // 获取当前要执行的功能的name
             var attr = $(this).attr('name');

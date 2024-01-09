@@ -11,5 +11,4 @@ public interface PointService {
     public List<Point> fuzzyQuery(String name);
     public Map<String, Object> meaningsCount();
 
-
 }

@@ -1,6 +1,5 @@
 lm.heatMap = (function () {
     var heatmapLayer;
-
     function onload() {
         $.ajax({
             type: 'POST',

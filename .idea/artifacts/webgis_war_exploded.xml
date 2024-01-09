@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="webgis:war exploded">
+  <artifact type="war" name="webgis:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/webgis_war_exploded</output-path>
-    <root id="root">
+    <root id="archive" name="webgis_war exploded.war">
       <element id="javaee-facet-resources" facet="webgis/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">

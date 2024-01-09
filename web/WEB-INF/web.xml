@@ -19,4 +19,12 @@
         <servlet-name>CountmeaningServlet</servlet-name>
         <url-pattern>/countmeaningServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AddpointServlet</servlet-name>
+        <servlet-class>com.lm.web.AddpointServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddpointServlet</servlet-name>
+        <url-pattern>/addpointServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
