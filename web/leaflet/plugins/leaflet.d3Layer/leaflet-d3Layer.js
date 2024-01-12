@@ -1,8 +1,7 @@
 /*!
- *
- *     Copyright (c) 2014 Teralytics AG
- *     Copyright© 2000-2017 SuperMap Software Co. Ltd
+ * 
  *     Leaflet.D3SvgOverlay.(https://github.com/SuperMap/Leaflet.D3SvgOverlay)
+ *     Copyright© 2000-2017 SuperMap Software Co. Ltd
  *     license: MIT
  *     version: v2.2.0
  * 
@@ -194,7 +193,7 @@ var D3SvgOverlay = exports.D3SvgOverlay = (_leaflet2.default.version < "1.0" ? _
         d3.selection.prototype.on = function (t, n, e) {
             oldOn.apply(me.selection, [t, n, e]);
             me.map.on(t, function () {
-                me.selection.dispatch(t);
+                me.selection.dispatch(t, { detail: e.originalEvent });
             });
         };
 

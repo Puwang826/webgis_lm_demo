@@ -27,4 +27,12 @@
         <servlet-name>AddpointServlet</servlet-name>
         <url-pattern>/addpointServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ContourjsonServlet</servlet-name>
+        <servlet-class>com.lm.web.ContourjsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContourjsonServlet</servlet-name>
+        <url-pattern>/contourjsonServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
