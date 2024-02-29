@@ -1,4 +1,5 @@
-这是一个webgis的demo
-前端主要用jquery.js和leaflet.js去构建地图的功能，用layui.js构建页面的框架
-后端主要用javaee，tomacat，servlet，jdbc构建，实现与数据库及前端的调联
-数据库采用postgresql以及postgis，实现对地理数据的操作
+这是一个webgis的demo，整体的技术架构图如下:
+
+![WEBGIS](README_image/WEBGIS.png)
+
+主要实现了web地图的基本功能，庐山实习的实习点添加，实习点查询，实习点统计，实习点热力分布可视化，新增了高程相关内容：测高以及等高线渲染
