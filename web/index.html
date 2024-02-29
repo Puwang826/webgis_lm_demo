@@ -8,10 +8,6 @@
     <script src="leaflet/leaflet.js"></script>
     <link rel="stylesheet" href="layui-v2.6.8/layui/css/layui.css">
     <script src="leaflet/plugins/leaflet.heat/leaflet-heat.js"></script>
-    <script src="d3/d3.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.js"></script>
-    <script src="leaflet/plugins/leaflet.d3Layer/leaflet-d3Layer.js"></script>
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
     <script src="layui-v2.6.8/layui/layui.js"></script>
     <script src="js/map.js"></script>
@@ -19,6 +15,7 @@
     <script src="js/count.js"></script>
     <script src="js/heatMap.js"></script>
     <script src="js/addpoint.js"></script>
+    <script src="js/contour.js"></script>
     <link rel="stylesheet" href="css/base.css">
 </head>
 <body>
@@ -54,7 +51,7 @@
                 <li><a href="#" name="count" class="menuItem"><img src="./images/bar-chart.svg" class="img-set">    实习点类型专题统计图</a></li>
                 <li><a href="#" name="heatMap" class="menuItem"><img src="./images/globe.svg" class="img-set">    实习点分布热力图</a></li>
                 <li><a href="#" name="addpoint" class="menuItem"><img src="./images/grid-fill.svg" class="img-set">    添加实习点</a></li>
-                <li><a href="#" name="visualpage" class="menuItem"><img src="./images/layout-text-window-reverse.svg" class="img-set">    功能开发中</a></li>
+                <li><a href="#" name="contour" class="menuItem"><img src="./images/layout-text-window-reverse.svg" class="img-set">   等高线渲染</a></li>
             </ul>
         </nav>
     </div>
@@ -79,16 +76,16 @@
         // 1. 地图加载与地图叠加，调用lm.map用法
         lm.map.addmap();
         // 处理查询和地图渲染的函数
-        var arry = ["query","count","heatMap","addpoint"];
+        var arry = ["query","count","heatMap","addpoint","contour"];
         $(".menuItem").click(function () {
             // 获取当前要执行的功能的name
             var attr = $(this).attr('name');
             // 清理其它资源
-            // var resetContent;
-            // for (i = 0; i < arry.length; i++) {
-            //     resetContent = arry[i];
-            //     lm[resetContent].clear();
-            // }
+            var resetContent;
+            for (i = 0; i < arry.length; i++) {
+                resetContent = arry[i];
+                lm[resetContent].clear();
+            }
             // 加载资源，每个js中都有onload用法
             lm[attr].onload();
         });

@@ -35,4 +35,12 @@
         <servlet-name>ContourjsonServlet</servlet-name>
         <url-pattern>/contourjsonServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>QueryelveServlet</servlet-name>
+        <servlet-class>com.lm.web.QueryelveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QueryelveServlet</servlet-name>
+        <url-pattern>/queryelveServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

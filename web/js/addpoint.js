@@ -88,7 +88,6 @@ lm.addpoint = (function () {
         buttonContainer.appendChild(addButton);
         buttonContainer.appendChild(clearButton);
 
-
         startPopupContent.appendChild(coordinatesContainer);
         startPopupContent.appendChild(formContainer);
         startPopupContent.appendChild(buttonContainer);
@@ -106,6 +105,7 @@ lm.addpoint = (function () {
     function clear() {
         clickedLatLng = null;
         poplatlng = null;
+        map.off('click'); // 移除地图的点击事件监听器
     }
 
     return {

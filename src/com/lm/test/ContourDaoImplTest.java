@@ -15,7 +15,7 @@ public class ContourDaoImplTest {
 
     @Test
     public void queryelevByPointJson() {
-        System.out.println(contourDao.queryelevByPointJson("{\"type\":\"Point\",\"coordinates\":[116.044124,29.55522]}', meaning='流水地貌'}"));
+        System.out.println(contourDao.queryelevByPointJson("{\"type\":\"Point\",\"coordinates\":[116.044124,29.55522]}'}"));
     }
 
     @Test

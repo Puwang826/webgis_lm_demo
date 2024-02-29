@@ -17,87 +17,104 @@ lm.map = (function () {
             attribution: "stamen"
         });
         var osmlayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="OpenStreetMaphttps://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'});
+        var wmsLayer = L.tileLayer.wms(
+            'http://localhost:8081/geoserver_war/wms', {
+                layers: 'lu:Export_Output',
+                format: 'image/png',
+                transparent: true
+            }
+        );
 
-        $.ajax({
-            type: 'POST',
-            url: 'http://localhost:8081/webgis/contourjsonServlet\n',
-            success: function(response) {
-                console.log(JSON.parse(response));
-                renderContours(JSON.parse(response));
+        //实例化map对象，一样是全局变量
+        window.map = L.map('map', {
+            //这里可能要考虑坐标系统一的问题
+            center: { lng: 115.96782, lat: 29.55539 },
+            //初始级别设置：
+            zoom: 15,
+            layers: [tiandituvec, wmsLayer],
+            preferCanvas: true,
+            zoomControl: false,
+        });
 
-            },
-            error: function(xhr, status, error) {
-                console.error('错误:', error);
+        // 添加图层切换控件
+        var baseMaps = {
+            "矢量图层":tiandituvec,
+            "影像图层":tiandituimg,
+            "OSM图层": osmlayer,
+        };
+        var overlayMaps = {
+            "九江":wmsLayer
+        };
+        L.control.layers(baseMaps, overlayMaps,{
+            position:'topright'
+        }).addTo(map);
+
+        // 创建缩放控件
+        var zoomControl = L.control.zoom(
+            {
+                position:'topright'
+            }
+        );
+        // 将缩放控件添加到地图
+        zoomControl.addTo(map);
+        // 切换高程测量状态的函数
+        window.toggleElevationMeasurement = function() {
+            var button = document.getElementById('elevation-button');
+            if (!measuringElevation) {
+                // 开启高程测量
+                measuringElevation = true;
+                button.style.backgroundColor = 'gray';
+                map.on('click', measureElevation);
+            } else {
+                // 关闭高程测量
+                measuringElevation = false;
+                button.style.backgroundColor = '';
+                map.off('click', measureElevation);
+            }
+        }
+        // 处理地图点击事件，显示点击点的高程
+        function measureElevation(e) {
+            var latlng = e.latlng;
+            // 这里应该根据经纬度获取对应点的高程，这里只是示例
+            // if (latlng.lat >= 40 && latlng.lat <= 50 && latlng.lng >= -10 && latlng.lng <= 10) {
+            if (1) {
+                // 如果在范围内，则获取高程信息
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8081/webgis/queryelveServlet\n', // 更新为您的servlet映射的正确URL
+                    data: {
+                        lat: latlng.lat,
+                        lng: latlng.lng,
+                    },
+                    success: function(response) {
+                        // 处理响应，并使用Leaflet在地图上渲染
+                        L.popup()
+                            .setLatLng(latlng)
+                            .setContent('高程：' + response.toFixed(2) + '米')
+                            .openOn(map);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('错误:', error);
+                    }
+                });
+            } else {
+                // 如果不在范围内，则在网页上显示提示信息
+                alert('点击点超出范围');
+            }
+        }
+        // 创建测量高程控件类
+        var ElevationControl = L.Control.extend({
+            onAdd: function(map) {
+                var container = L.DomUtil.create('div', 'elevation-control');
+                container.innerHTML = '<button id="elevation-button" onclick="toggleElevationMeasurement()"></button>';
+                return container;
             }
         });
-        function renderContours(data) {
-            // 使用 D3.js 创建 SVG 元素
-            function projectPoint(x, y) {
-                var point = map.latLngToLayerPoint(new L.LatLng(y, x));
-                console.log("1");
-                this.stream.point(point.x, point.y);
-            }
-            var projection = d3.geo.transform({point: projectPoint});
-            var svg = d3.select(map._container).append('svg');
-            var g = svg.append('g').attr('class', 'leaflet-zoom-hide');
-            const colorScale = d3.scaleSequential(d3.interpolateViridis)
-                .domain(d3.extent(data.features, function(d) { return d.properties.ELEV; }))
-                .interpolator(d3.interpolateRgb("rgb(255,255,224)", "rgb(160,82,45)"));
-            const path = d3.geoPath().projection(projection);
-            // 使用 Leaflet 的 d3Layer 创建图层
-            var d3Layer = L.supermap.d3Layer(function(selection, projection) {
-
-                // 在此处使用 D3.js 渲染等高线数据
-                var contours = selection.selectAll('contour-line').data(data.features);
-                contours
-                    .data(data.features)
-                    .enter().append("path")
-                    .attr("class", "contour-line")
-                    .attr("d", path)
-                    .style("fill", "none")
-                    .style("stroke", function(d) {
-                        // 你可以根据高程字段来设置等高线的颜色
-                        return colorScale(d.properties.ELEV);
-                    });
-            });
-            initializeMap(d3Layer);  // 在 D3 图层创建完成后初始化地图
-        }
-        function initializeMap(d3Layer) {
-            // 实例化 map 对象，一样是全局变量
-
-            window.map = L.map('map', {
-                //这里可能要考虑坐标系统一的问题
-                center: { lng: 115.96782, lat: 29.55539 },
-                //初始级别设置：
-                zoom: 15,
-                layers: [tiandituvec],
-                preferCanvas: true,
-                zoomControl: false,
-            });
-
-            // 添加图层切换控件
-            var baseMaps = {
-                "矢量图层":tiandituvec,
-                "影像图层":tiandituimg,
-                "OSM图层": osmlayer,
-            };
-
-            var overlayMaps = {
-                "D3Layer": d3Layer, // 将 D3Layer 添加到可选图层
-            };
-            L.control.layers(baseMaps, overlayMaps, {
-                position: 'topright'
-            }).addTo(map);
-            // 创建缩放控件
-            var zoomControl = L.control.zoom(
-                {
-                    position:'topright'
-                }
-            );
-            // 将缩放控件添加到地图
-            zoomControl.addTo(map);
-            console.log(d3Layer);
-        }
+        // 将测量高程控件添加到地图上
+        var elevationControl = new ElevationControl({ position: 'topright' });
+        elevationControl.addTo(map);
+        // 标记是否正在进行高程测量
+        var measuringElevation = false;
     }
 
     return {
